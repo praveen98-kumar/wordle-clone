@@ -7,6 +7,10 @@ export const getRandomWord = (): string => {
   return wordBank.valid[randomNumber];
 };
 
+export const isValidWord = (word: string): boolean => {
+  return wordBank.valid.concat(wordBank.invalid).includes(word)
+}
+
 export enum LetterState {
   Miss,
   Present,
@@ -65,3 +69,4 @@ export const computeGuess = (guess: string, answer: string) => {
   });
   return result;
 };
+
