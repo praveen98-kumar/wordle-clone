@@ -3,7 +3,7 @@ import WordRow from "./components/WordRow";
 import { useStore } from "./store";
 import { LETTER_LENGTH } from "./wordUtils";
 
-const GUESS_COUNT = 6;
+export const GUESS_COUNT = 6;
 
 const App: React.FC = () => {
   const state = useStore();
@@ -29,7 +29,8 @@ const App: React.FC = () => {
 
   rows = rows.concat(Array(numberOfGuessesRemaining).fill({ guess: "" }));
 
-  const isGameOver = state.rows.length === GUESS_COUNT;
+  const isGameOver = state.gameState !== "playing";
+
   return (
     <div className="w-96 relative mx-auto">
       <header className="border-b border-gray-500 my-2 pb-2">

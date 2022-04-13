@@ -10,7 +10,7 @@ describe("Simple working test", () => {
   });
 
   test("show empty state", () => {
-    useStore.setState({ guesses: [] });
+    useStore.getState().newGame([]);
     render(<App />);
     expect(screen.queryByText("Game Over")).toBeNull();
     expect(document.querySelectorAll("main div")).toHaveLength(6);
@@ -18,19 +18,27 @@ describe("Simple working test", () => {
   });
 
   test("show one row of guesses", () => {
-    useStore.setState({ guesses: ["hello"] });
+    useStore.getState().newGame(["hello"]);
     render(<App />);
     expect(document.querySelector("main")?.textContent).toEqual("hello");
   });
 
-  test("show game over state", () => {
-    useStore.setState({ guesses: Array(6).fill("hello") });
+  test("show lost game over state", () => {
+    useStore.getState().newGame(Array(6).fill("hello"));
+    render(<App />);
+    expect(screen.getByText("Game Over")).toBeInTheDocument();
+  });
+
+  test("show won game over state", () => {
+    useStore.getState().newGame(Array(2).fill("hello"));
+    const answer = useStore.getState().answer;
+    useStore.getState().addGuess(answer);
     render(<App />);
     expect(screen.getByText("Game Over")).toBeInTheDocument();
   });
 
   test("can state a new game", () => {
-    useStore.setState({ guesses: Array(6).fill("hello") });
+    useStore.getState().newGame(Array(6).fill("hello"));
     render(<App />);
     expect(screen.getByText("Game Over")).toBeInTheDocument();
     userEvent.click(screen.getByText("New Game"));
