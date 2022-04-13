@@ -19,17 +19,17 @@ const App: React.FC = () => {
     setGuess(newGuess);
   };
 
-  let rows = [...state.guesses];
+  let rows = [...state.rows];
 
   if (rows.length < GUESS_COUNT) {
-    rows.push(guess);
+    rows.push({ guess });
   }
 
   const numberOfGuessesRemaining = GUESS_COUNT - rows.length;
 
-  rows = rows.concat(Array(numberOfGuessesRemaining).fill(""));
+  rows = rows.concat(Array(numberOfGuessesRemaining).fill({ guess: "" }));
 
-  const isGameOver = state.guesses.length === GUESS_COUNT;
+  const isGameOver = state.rows.length === GUESS_COUNT;
   return (
     <div className="w-96 relative mx-auto">
       <header className="border-b border-gray-500 my-2 pb-2">
@@ -43,7 +43,13 @@ const App: React.FC = () => {
       />
       <main className="grid grid-rows-6 gap-4">
         {rows.map((word, i) => {
-          return <WordRow letters={word} key={i + word} />;
+          return (
+            <WordRow
+              letters={word.guess}
+              key={i + guess}
+              result={word.result}
+            />
+          );
         })}
       </main>
 
