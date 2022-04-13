@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useStore } from "../store";
 import { LETTER_LENGTH } from "../wordUtils";
-import usePrevious from "./usePrevious";
 
-const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
+const useGuess = (): [
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+  (letter: string) => void
+] => {
   const [guess, setGuess] = useState("");
-  const addGuess = useStore((s) => s.addGuess);
-  const previousGuess = usePrevious(guess);
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    let letter = e.key;
+  const addGuessLetter = (letter: string) => {
     setGuess((curGuess) => {
       const newGuess = letter.length === 1 ? curGuess + letter : curGuess;
 
@@ -28,6 +26,11 @@ const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
       return newGuess;
     });
   };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    let letter = e.key;
+    addGuessLetter(letter);
+  };
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown);
 
@@ -36,12 +39,7 @@ const useGuess = (): [string, React.Dispatch<React.SetStateAction<string>>] => {
     };
   }, []);
 
-  useEffect(() => {
-    if (guess.length === 0 && previousGuess?.length === LETTER_LENGTH) {
-      addGuess(previousGuess);
-    }
-  }, [guess]);
-  return [guess, setGuess];
+  return [guess, setGuess, addGuessLetter];
 };
 
 export default useGuess;
