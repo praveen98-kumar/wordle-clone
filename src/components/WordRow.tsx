@@ -1,18 +1,18 @@
 import React from "react";
-import { computeGuess } from "../wordUtils";
+import { useStore } from "../store";
+import { computeGuess, LETTER_LENGTH } from "../wordUtils";
 import CharacterBox from "./CharacterBox";
-
-const LETTER_LENGTH = 5;
 
 interface WordRowProps {
   letters: string;
 }
 
 const WordRow: React.FC<WordRowProps> = ({ letters: letterProps }) => {
+  const answer = useStore((state) => state.answer);
   const letterRemaining = LETTER_LENGTH - letterProps.length;
   const letters = letterProps.split("").concat(Array(letterRemaining).fill(""));
 
-  const guessStates = computeGuess(letterProps);
+  const guessStates = computeGuess(letterProps, answer);
   return (
     <div className="grid grid-cols-5 gap-4">
       {letters.map((char, index) => (
