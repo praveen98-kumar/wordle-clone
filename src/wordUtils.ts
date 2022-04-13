@@ -3,13 +3,13 @@ import wordBank from "./wordbank.json";
 export const LETTER_LENGTH = 5;
 
 export const getRandomWord = (): string => {
-  const randomNumber = Math.floor(Math.random() * wordBank.valid.length);
-  return wordBank.valid[randomNumber];
+  const randomNumber = Math.floor(Math.random() * wordBank.length);
+  return wordBank[randomNumber];
 };
 
 export const isValidWord = (word: string): boolean => {
-  return wordBank.valid.concat(wordBank.invalid).includes(word)
-}
+  return wordBank.includes(word);
+};
 
 export enum LetterState {
   Miss,
@@ -69,4 +69,3 @@ export const computeGuess = (guess: string, answer: string) => {
   });
   return result;
 };
-
