@@ -10,7 +10,7 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({ value, state }) => {
   const stateStyle = state == null ? "" : characterStateStyles[state];
   return (
     <span
-      className={`border-2 text-center font-extrabold text-4xl p-2 uppercase ${stateStyle}`}
+      className={`border-2 border-gray-500 text-center font-extrabold before:inline-block before:content-['_'] text-4xl p-2 uppercase ${stateStyle}`}
     >
       {value}
     </span>
