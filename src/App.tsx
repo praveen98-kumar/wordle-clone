@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import WordRow from "./components/WordRow";
+import useGuess from "./hooks/useGuess";
 import { useStore } from "./store";
-import { LETTER_LENGTH } from "./wordUtils";
 
 export const GUESS_COUNT = 6;
 
 const App: React.FC = () => {
   const state = useStore();
-  const [guess, setGuess] = useState<string>("");
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newGuess = e.target.value;
-    if (newGuess.length === LETTER_LENGTH) {
-      state.addGuess(newGuess);
-      setGuess("");
-      return;
-    }
-    setGuess(newGuess);
-  };
+  const [guess, setGuess] = useGuess();
 
   let rows = [...state.rows];
 
@@ -36,18 +26,12 @@ const App: React.FC = () => {
       <header className="border-b border-gray-500 my-2 pb-2">
         <h1 className="font-bold text-6xl text-center">Wordle</h1>
       </header>
-      <input
-        className="w-1/2 border-2 border-gray-600 p-2 my-2"
-        value={guess}
-        onChange={onChange}
-        disabled={isGameOver}
-      />
       <main className="grid grid-rows-6 gap-4">
         {rows.map((word, i) => {
           return (
             <WordRow
               letters={word.guess}
-              key={i + guess}
+              key={i + word.guess}
               result={word.result}
             />
           );
@@ -55,7 +39,10 @@ const App: React.FC = () => {
       </main>
 
       {isGameOver && (
-        <div className="absolute bg-white top-1/4 p-6 w-3/4 mx-auto rounded border border-gray-500 left-0 right-0 text-center">
+        <div
+          role={"modal"}
+          className="absolute bg-white top-1/4 p-6 w-3/4 mx-auto rounded border border-gray-500 left-0 right-0 text-center"
+        >
           Game Over
           <button
             onClick={() => {
