@@ -8,10 +8,13 @@ const App: React.FC = () => {
         <h1 className="font-bold text-6xl text-center">Wordle</h1>
       </header>
 
-      <main>
-        <WordRow letters="hel" />
-        <WordRow letters="hell" />
+      <main className="grid grid-rows-6 gap-4">
+        <WordRow letters="solar" />
         <WordRow letters="hello" />
+        <WordRow letters="penny" />
+        <WordRow letters="stare" />
+        <WordRow letters="snack" />
+        <WordRow letters="he" />
       </main>
     </div>
   );

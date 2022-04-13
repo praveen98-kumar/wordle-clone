@@ -11,7 +11,9 @@ export enum LetterState {
   Match,
 }
 
-export const computeGuess = (guess: string, answer: string) => {
+const word = getRandomWord();
+
+export const computeGuess = (guess: string, answer: string = word) => {
   const result: LetterState[] = [];
 
   if (guess.length !== answer.length) return [];
