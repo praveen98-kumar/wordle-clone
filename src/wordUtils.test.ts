@@ -45,4 +45,25 @@ describe("computeGuess", () => {
       LetterState.Miss,
     ]);
   });
+  test("returns empty array when given incomlete guess", () => {
+    expect(computeGuess("so", "smelt")).toEqual([]);
+  });
+  test("when 2 letters are present but answer has only 1 of the letter", () => {
+    expect(computeGuess("allow", "smelt")).toEqual([
+      LetterState.Miss,
+      LetterState.Present,
+      LetterState.Miss,
+      LetterState.Miss,
+      LetterState.Miss,
+    ]);
+  });
+  test("when 1 letter matches but guess has more of the same letter", () => {
+    expect(computeGuess("allol", "color")).toEqual([
+      LetterState.Miss,
+      LetterState.Miss,
+      LetterState.Match,
+      LetterState.Match,
+      LetterState.Miss,
+    ]);
+  });
 });
