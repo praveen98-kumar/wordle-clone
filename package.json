@@ -1,0 +1,28 @@
+{
+  "name": "wordle",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.15",
+    "@vitejs/plugin-react": "^1.3.0",
+    "@vitest/ui": "latest",
+    "jsdom": "latest",
+    "vite": "latest",
+    "vitest": "latest"
+  }
+}
